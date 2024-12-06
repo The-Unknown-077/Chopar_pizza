@@ -1,13 +1,14 @@
 version: '3'
 
 volumes:
-  postgres_data: {}
-  static_data: {}
-  media_data: {}
+  sqlite_data: 
+  static_data: 
+  media_data: 
 
 services:
   web:
-    container_name: ${PROJECT_NAME}_web
+    image: web_image
+    container_name: ipsphere015backend
     depends_on:
       - db
     build: .
@@ -18,24 +19,15 @@ services:
     env_file: .env
     command: python manage.py runserver
     ports:
-      - ${PORT}:${PORT}
+      - 8000:8000
     restart: always
 
   db:
     image: postgres:13.4-buster
-    container_name: ${PROJECT_NAME}_db
+    container_name: sqlite_container
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - sqlite_data:/app/db
     env_file: .env
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_HOST=${DB_HOST}
-      - POSTGRES_PORT=${DB_PORT}
-    restart: always
-
-  redis:
-    container_name: ${PROJECT_NAME}_redis
-    image: redis:5.0
+      DATABASE_URL: "sqlite:///db/app.db.sqlite3"  
     restart: always
