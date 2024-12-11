@@ -11,6 +11,7 @@ from .schema import swagger_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    
 ]
 
 
