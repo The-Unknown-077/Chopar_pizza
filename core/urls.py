@@ -4,7 +4,7 @@ from os import path
 
 from django.contrib import admin
 
-from apps.common.views import PizzaListCreateView,PizzaRetrieveUpdateDestroyView,OrderListCreateView,OrderRetrieveUpdateDestroyView,CustomerListCreateView,CustomerRetrieveUpdateDestroyView,DeliveryPersonListCreateView,DeliveryPersonRetrieveUpdateDestroyView,PaymentListCreateView,PaymentRetrieveUpdateDestroyView,CartRetrieveView,ProductListCreateView,CartItemAddView,CartItemDeleteView,PaymentCreateView
+from apps.common.views import PizzaListCreateView,PizzaRetrieveUpdateDestroyView,OrderListCreateView,OrderRetrieveUpdateDestroyView,CustomerListCreateView,CustomerRetrieveUpdateDestroyView,DeliveryPersonListCreateView,DeliveryPersonRetrieveUpdateDestroyView,PaymentListCreateView,PaymentRetrieveUpdateDestroyView,CartRetrieveView,CartItemAddView,CartItemDeleteView,PaymentCreateView
 
 from django.urls import path
 from apps.common import views
@@ -22,7 +22,7 @@ urlpatterns = [
     path('delivery-persons/<int:pk>/', DeliveryPersonRetrieveUpdateDestroyView.as_view(), name='delivery-person-detail'),
     path('payments/', PaymentListCreateView.as_view(), name='payment-list-create'),
     path('payments/<int:pk>/', PaymentRetrieveUpdateDestroyView.as_view(), name='payment-detail'),
-      path('products/', ProductListCreateView.as_view(), name='product-list-create'),
+    #   path('products/', ProductListCreateView.as_view(), name='product-list-create'),
 
     path('cart/', CartRetrieveView.as_view(), name='cart-retrieve'),
     path('cart/items/add/', CartItemAddView.as_view(), name='cart-item-add'),
