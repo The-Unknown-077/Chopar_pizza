@@ -107,3 +107,52 @@ class Product(models.Model):
 
 class User(models.Model):
     pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#model
+def generate_confirmation_code():
+    return str(random.randint(100000, 999999))
+
+class CustomUser(models.Model):
+    email = models.EmailField(unique=True)
+    confirmation_code = models.CharField(max_length=6, blank=True)
+    is_confirmed = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Yangi foydalanuvchi uchun tasdiqlash kodi yaratish
+            self.confirmation_code = generate_confirmation_code()
+        super().save(*args, **kwargs)
+
+#Forma
+class RegistrationForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['email']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            send_confirmation_email(user)
+        return user
+
+#tasdiqlov kodini email bilan yuborish
+def send_confirmation_email(user):
+    subject = "Tasdiqlash kodi"
+    message = f"Hurmatli foydalanuvchi, sizning tasdiqlash kodingiz: {CustomUser.confirmation_code}"
+    from_email = "noreply@example.com"
+    recipient_list = [CustomUser.email]
+    send_mail(subject, message, from_email, recipient_list)
+
