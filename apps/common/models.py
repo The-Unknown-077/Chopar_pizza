@@ -146,3 +146,16 @@ def send_confirmation_email(user):
     recipient_list = [CustomUser.email]
     send_mail(subject, message, from_email, recipient_list)
 
+
+
+class UserLocation(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    latitude = models.FloatField()
+    langitude = models.FloatField()
+    home = models.CharField(max_length=200)
+    kv = models.CharField(max_length=200)
+    podyezd = models.CharField(max_length=200)
+    domofon_code = models.CharField(max_length=200)
+    name_address = models.CharField(max_length=200)
+    is_active = models.BooleanField(default=False)
+
