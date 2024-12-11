@@ -1,4 +1,9 @@
 from django.db import models
+from django import forms
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.contrib import messages
+import random
 
 
 
@@ -75,3 +80,53 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.order.customer_name} - {self.amount}"
+
+
+
+
+
+#son generatsiya qlshga
+def generate_confirmation_code():
+    return str(random.randint(100000, 999999))
+
+class CustomUser(models.Model):
+    email = models.EmailField(unique=True)
+    confirmation_code = models.CharField(max_length=6, blank=True)
+    is_confirmed = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Yangi foydalanuvchi uchun tasdiqlash kodi yaratish
+            self.confirmation_code = generate_confirmation_code()
+        super().save(*args, **kwargs)
+
+
+#Form
+class RegistrationForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['email']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            send_confirmation_email(user)
+        return user
+
+
+
+
+# Emailli tastiqlash uchunnn
+def send_confirmation_email(user):
+    subject = "Tasdiqlash kodi"
+    message = f"Hurmatli foydalanuvchi, sizning tasdiqlash kodingiz: {user.confirmation_code}"
+    from_email = "noreply@example.com"
+    recipient_list = [user.email]
+    send_mail(subject, message, from_email, recipient_list)
+
+
+
+
+
+
+

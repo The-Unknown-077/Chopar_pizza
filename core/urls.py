@@ -2,12 +2,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-
+from apps.common import views
 from .schema import swagger_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('register/', views.register, name='register'),
+    path('confirm/', views.confirm, name='confirm'),
+    path('success/', views.success, name='success'),
 ]
+
 
 urlpatterns += swagger_urlpatterns
 
