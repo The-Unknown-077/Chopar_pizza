@@ -3,19 +3,15 @@ from django.conf.urls.static import static
 from os import path
 
 from django.contrib import admin
-<<<<<<< HEAD
 
 from apps.common.views import PizzaListCreateView,PizzaRetrieveUpdateDestroyView,OrderListCreateView,OrderRetrieveUpdateDestroyView,CustomerListCreateView,CustomerRetrieveUpdateDestroyView,DeliveryPersonListCreateView,DeliveryPersonRetrieveUpdateDestroyView,PaymentListCreateView,PaymentRetrieveUpdateDestroyView,CartRetrieveView,ProductListCreateView,CartItemAddView,CartItemDeleteView,PaymentCreateView
 
-=======
 from django.urls import path
 from apps.common import views
->>>>>>> 9c84f4fb8c8e3fb5acfb5b7dca2dad3dfe3beb05
 from .schema import swagger_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-<<<<<<< HEAD
     path('pizzas/', PizzaListCreateView.as_view(), name='pizza-list-create'),
     path('pizzas/<int:pk>/', PizzaRetrieveUpdateDestroyView.as_view(), name='pizza-detail'),
     path('orders/', OrderListCreateView.as_view(), name='order-list-create'),
@@ -34,11 +30,9 @@ urlpatterns = [
 
  
     path('payment/', PaymentCreateView.as_view(), name='payment-create'),
-=======
     path('register/', views.register, name='register'),
     path('confirm/', views.confirm, name='confirm'),
     path('success/', views.success, name='success'),
->>>>>>> 9c84f4fb8c8e3fb5acfb5b7dca2dad3dfe3beb05
 ]
 
 

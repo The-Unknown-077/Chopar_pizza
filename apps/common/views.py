@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from .models import Pizza, Order, Customer, DeliveryPerson, Payment , Cart , CartItem
 from rest_framework import generics , status
 from rest_framework.response import Response
@@ -110,7 +109,7 @@ class PaymentCreateView(generics.CreateAPIView):
         serializer.save()
         cart.items.all().delete()  
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-=======
+
 from django.shortcuts import render
 from django.contrib import messages
 from django.http import HttpResponse
@@ -149,4 +148,3 @@ def confirm(request):
 def success(request):
     return HttpResponse("Registratsiya muvaffaqiyatli yakunlandi!")
 
->>>>>>> 9c84f4fb8c8e3fb5acfb5b7dca2dad3dfe3beb05

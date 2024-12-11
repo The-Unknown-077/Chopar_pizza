@@ -6,6 +6,14 @@ from django.contrib import messages
 import random
 
 
+class CustomUser(models.Model):
+    pass
+
+
+class RegistrationForm(models.Model):
+    pass
+
+
 
 class Pizza(models.Model):
     name = models.CharField(max_length=100)
@@ -84,3 +92,18 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.order.customer_name} - {self.amount}"
+
+
+class Cart(models.Model):
+    pass
+
+class CartItem(models.Model):
+    pass
+
+
+class Product(models.Model):
+    pass
+
+
+class User(models.Model):
+    pass
