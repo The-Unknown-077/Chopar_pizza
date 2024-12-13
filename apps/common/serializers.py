@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from . import models
+from rest_framework import serializers
+from apps.common.models import Product, ProductPrice, Order, OrderItem, ContactInfo, CustomUser, UserLocation
+
 
 
 
@@ -39,8 +42,7 @@ class ContactInfoSerializer(serializers.ModelSerializer):
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CustomUser
-        fields = ('email','confirmation_code','username')
-
+        fields = "__all__"
 class UserLocationSerialzer(serializers.ModelSerializer):
     model = models.UserLocation
     fields = '__all__' 
