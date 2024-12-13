@@ -1,35 +1,40 @@
-from rest_framework import generics
-from . import models, serializers
+from rest_framework import viewsets
+from apps.common.models import Product,ProductPrice,Order,OrderItem,ContactInfo,CustomUser,UserLocation
+from apps.common.serializers import ProductSerializer,ProductPriceSerialzier,OrderSerializer,OrderItemSerializer,ContactInfoSerializer,CustomUserSerializer,UserLocationSerialzer
+from rest_framework.viewsets import ModelViewSet 
+from rest_framework.permissions import IsAuthenticated 
 
 
-class ProductListCreateView(generics.ListCreateAPIView):
-    queryset = models.Product.objects.all()
-    serializer_class = serializers.ProductSerializer
+class UnifiedViewSet(viewsets.ModelViewSet):
+
+    def get_queryset(self):
+        model = self.serializer_class.Meta.model
+        return model.objects.all()
 
 
-class ProductPriceListCreateView(generics.ListCreateAPIView):
-    queryset = models.ProductPrice.objects.all()
-    serializer_class = serializers.ProductPriceSerialzier
+class ProductViewSet(UnifiedViewSet):
+    serializer_class = ProductSerializer
 
 
-class OrderListCreateView(generics.ListCreateAPIView):
-    queryset = models.Order.objects.all()
-    serializer_class = serializers.OrderSerializer
+class ProductPriceViewSet(UnifiedViewSet):
+    serializer_class = ProductPriceSerialzier
 
 
-class OrderItemListCreateView(generics.ListCreateAPIView):
-    queryset = models.OrderItem.objects.all()
-    serializer_class = serializers.OrderItemSerializer
-
-class ContactInfoListCreateView(generics.ListCreateAPIView):
-    queryset = models.ContactInfo.objects.all()
-    serializer_class = serializers.ContactInfoSerializer
-
-class CustomUserListCreateView(generics.ListCreateAPIView):
-    queryset = models.CustomUser.objects.all()
-    serializer_class = serializers.CustomUserSerializer
+class OrderViewSet(UnifiedViewSet):
+    serializer_class = OrderSerializer
 
 
-class UserLocationListCreateView(generics.ListCreateAPIView):
-    queryset = models.UserLocation.objects.all()
-    serializer_class = serializers.UserLocationSerialzer
+class OrderItemViewSet(UnifiedViewSet):
+    serializer_class = OrderItemSerializer
+
+
+class ContactInfoViewSet(UnifiedViewSet):
+    serializer_class = ContactInfoSerializer
+
+
+class CustomUserViewSet(UnifiedViewSet):
+    serializer_class = CustomUserSerializer
+
+
+class UserLocationViewSet(UnifiedViewSet):
+    serializer_class = UserLocationSerialzer
