@@ -1,40 +1,41 @@
-from rest_framework import viewsets
-from apps.common.models import Product,ProductPrice,Order,OrderItem,ContactInfo,CustomUser,UserLocation
-from apps.common.serializers import ProductSerializer,ProductPriceSerialzier,OrderSerializer,OrderItemSerializer,ContactInfoSerializer,CustomUserSerializer,UserLocationSerialzer
-from rest_framework.viewsets import ModelViewSet 
-from rest_framework.permissions import IsAuthenticated 
+from rest_framework import generics
+from common import models, serializers
 
 
-class UnifiedViewSet(viewsets.ModelViewSet):
-
-    def get_queryset(self):
-        model = self.serializer_class.Meta.model
-        return model.objects.all()
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.Product.objects.all()
+    serializer_class = serializers.ProductSerializer
 
 
-class ProductViewSet(UnifiedViewSet):
-    serializer_class = ProductSerializer
+
+class ProductPriceListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.ProductPrice.objects.all()
+    serializer_class = serializers.ProductPriceSerialzier  
 
 
-class ProductPriceViewSet(UnifiedViewSet):
-    serializer_class = ProductPriceSerialzier
+class OrderListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
 
 
-class OrderViewSet(UnifiedViewSet):
-    serializer_class = OrderSerializer
+class OrderItemListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.OrderItem.objects.all()
+    serializer_class = serializers.OrderItemSerializer
 
 
-class OrderItemViewSet(UnifiedViewSet):
-    serializer_class = OrderItemSerializer
+class ContactInfoListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.ContactInfo.objects.all()
+    serializer_class = serializers.ContactInfoSerializer
 
 
-class ContactInfoViewSet(UnifiedViewSet):
-    serializer_class = ContactInfoSerializer
+
+class CustomUserListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.CustomUser.objects.all()
+    serializer_class = serializers.CustomUserSerializer
 
 
-class CustomUserViewSet(UnifiedViewSet):
-    serializer_class = CustomUserSerializer
 
 
-class UserLocationViewSet(UnifiedViewSet):
-    serializer_class = UserLocationSerialzer
+class UserLocationListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.UserLocation.objects.all()
+    serializer_class = serializers.UserLocationSerialzer 
