@@ -1,5 +1,5 @@
 from rest_framework import generics
-from common import models, serializers
+from apps.common import models, serializers
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
