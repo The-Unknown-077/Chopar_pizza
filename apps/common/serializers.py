@@ -44,7 +44,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = models.CustomUser
         fields = "__all__"
 class UserLocationSerialzer(serializers.ModelSerializer):
-    model = models.UserLocation
-    fields = '__all__' 
-    
+    class Meta:
+        model = models.UserLocation
+        fields = '__all__' 
+        
        
