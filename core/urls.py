@@ -13,13 +13,13 @@ from .schema import swagger_urlpatterns
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    path('products/', views.ProductListCreateView.as_view(), name='product-list-create'),
-    path('product-prices/', views.ProductPriceListCreateView.as_view(), name='product-price-list-create'),
-    path('orders/', views.OrderListCreateView.as_view(), name='order-list-create'),
-    path('order-items/', views.OrderItemListCreateView.as_view(), name='order-item-list-create'),
-    path('contact-info/', views.ContactInfoListCreateView.as_view(), name='contact-info-list-create'),
-    path('users/', views.CustomUserListCreateView.as_view(), name='custom-user-list-create'),
-    path('user-locations/', views.UserLocationListCreateView.as_view(), name='user-location-list-create'),
+    path('products/', views.ProductListCreateAPIView.as_view(), name='product-list-create'),
+    path('product-prices/', views.ProductPriceListCreateAPIView.as_view(), name='product-price-list-create'),
+    path('orders/', views.OrderListCreateAPIView.as_view(), name='order-list-create'),
+    path('order-items/', views.OrderItemListCreateAPIView.as_view(), name='order-item-list-create'),
+    path('contact-info/', views.ContactInfoListCreateAPIView.as_view(), name='contact-info-list-create'),
+    path('users/', views.CustomUserListCreateAPIView.as_view(), name='custom-user-list-create'),
+    path('user-locations/', views.UserLocationListCreateAPIView.as_view(), name='user-location-list-create'),
 
 ]
 
