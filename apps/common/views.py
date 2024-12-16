@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from rest_framework_simplejwt.tokens import RefreshToken
-
+import random
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
@@ -145,7 +145,8 @@ class UserProfile(APIView):
 
 
     
-
+def generate_confirmation_code():
+    return str(random.randint(100000, 999999))
 
 User = get_user_model()
 
