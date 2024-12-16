@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import path
 from apps.common import views
 from .schema import swagger_urlpatterns
-
+from apps.common.views import request_confirmation_code, confirm_email
 from apps.common.views import CartListCreateView,CartItemDeleteView, UserProfile
 
 
