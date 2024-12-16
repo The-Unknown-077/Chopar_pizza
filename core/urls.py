@@ -1,14 +1,14 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from os import path
-
-
 from django.contrib import admin
-
-
 from django.urls import path
 from apps.common import views
 from .schema import swagger_urlpatterns
+
+from apps.common.views import CartListCreateView,CartItemDeleteView
+
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -20,7 +20,8 @@ urlpatterns = [
     path('contact-info/', views.ContactInfoListCreateAPIView.as_view(), name='contact-info-list-create'),
     path('users/', views.CustomUserListCreateAPIView.as_view(), name='custom-user-list-create'),
     path('user-locations/', views.UserLocationListCreateAPIView.as_view(), name='user-location-list-create'),
-
+    path('cart/', CartListCreateView.as_view(), name='cart-list-create'),
+    path('cart/item/<int:pk>/', CartItemDeleteView.as_view(), name='cart-item-delete'),
 ]
 
 
