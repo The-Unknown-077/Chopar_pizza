@@ -9,6 +9,8 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -117,16 +119,17 @@ class CustomObject(BaseUserManager):
 
 
 
+
+
 def generate_confirmation_code():
     return str(random.randint(100000, 999999))
 
 class CustomUser(AbstractUser):
-
     email = models.EmailField(unique=True)
     confirmation_code = models.CharField(max_length=6, blank=True)
     is_confirmed = models.BooleanField(default=False)
 
-    objects = CustomObject()
+    objects = models.Manager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -136,7 +139,6 @@ class CustomUser(AbstractUser):
         if not self.pk:
             self.confirmation_code = generate_confirmation_code()
         super().save(*args, **kwargs)
-
 
 
 def send_confirmation_email(user):
