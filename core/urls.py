@@ -6,8 +6,7 @@ from django.urls import path
 from apps.common import views
 from .schema import swagger_urlpatterns
 
-from apps.common.views import CartListCreateView,CartItemDeleteView
-
+from apps.common.views import CartListCreateView,CartItemDeleteView, UserProfile
 
 
 urlpatterns = [
@@ -22,6 +21,8 @@ urlpatterns = [
     path('user-locations/', views.UserLocationListCreateAPIView.as_view(), name='user-location-list-create'),
     path('cart/', CartListCreateView.as_view(), name='cart-list-create'),
     path('cart/item/<int:pk>/', CartItemDeleteView.as_view(), name='cart-item-delete'),
+    
+    path('profile/', UserProfile.as_view())
 ]
 
 
