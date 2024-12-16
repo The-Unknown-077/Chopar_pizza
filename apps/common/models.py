@@ -48,7 +48,7 @@ class Order(models.Model):
     total_amount = models.IntegerField()
 
     def __str__(self):
-        return f"{self.customer_name} - {self.pizza.name}"
+        return f"{self.customer_name}"
 
 
 class OrderItem(models.Model):
