@@ -120,39 +120,39 @@ class CartItemDeleteView(APIView):
         return Response({'detail': 'Item removed from cart'}, status=status.HTTP_204_NO_CONTENT)
 
 
-class UserProfile(APIView):
+# class UserProfile(APIView):
 
-    def get(self, request):
-        user: User = request.user
-        if not user.is_authenticated:
-            return Response(status=401)
-        data = {
-            'full_name': user.first_name,
-            'phone_number': user.email, 
-        }
+#     def get(self, request):
+#         user: User = request.user
+#         if not user.is_authenticated:
+#             return Response(status=401)
+#         data = {
+#             'full_name': user.first_name,
+#             'phone_number': user.email, 
+#         }
 
-        return Response(data=data)
-
-
+#         return Response(data=data)
 
 
-User = get_user_model()
 
-class VerifyEmailView(APIView):
-    def post(self, request):
-        email = request.data.get('email')
-        code = request.data.get('verification_code')
 
-        try:
-            user = User.objects.get(email=email)
-            if user.verification_code == int(code):
-                user.is_active = True
-                user.verification_code = None  # Kodni olib tashlaymiz
-                user.save()
-                return Response({"detail": "Email tasdiqlandi, endi tizimga kiring."}, status=status.HTTP_200_OK)
-            return Response({"detail": "Noto'g'ri tasdiqlash kodi."}, status=status.HTTP_400_BAD_REQUEST)
-        except User.DoesNotExist:
-            return Response({"detail": "Bunday foydalanuvchi mavjud emas."}, status=status.HTTP_404_NOT_FOUND)
+# User = get_user_model()
+
+# class VerifyEmailView(APIView):
+#     def post(self, request):
+#         email = request.data.get('email')
+#         code = request.data.get('verification_code')
+
+#         try:
+#             user = User.objects.get(email=email)
+#             if user.verification_code == int(code):
+#                 user.is_active = True
+#                 user.verification_code = None  # Kodni olib tashlaymiz
+#                 user.save()
+#                 return Response({"detail": "Email tasdiqlandi, endi tizimga kiring."}, status=status.HTTP_200_OK)
+#             return Response({"detail": "Noto'g'ri tasdiqlash kodi."}, status=status.HTTP_400_BAD_REQUEST)
+#         except User.DoesNotExist:
+#             return Response({"detail": "Bunday foydalanuvchi mavjud emas."}, status=status.HTTP_404_NOT_FOUND)
 
 
 

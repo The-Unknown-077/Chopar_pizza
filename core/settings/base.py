@@ -46,7 +46,7 @@ DJANGO_APPS = [
     'apps',
 ]
 
-AUTH_USER_MODEL = 'apps.common.CustomUser'
+# AUTH_USER_MODEL = 'apps.common.CustomUser'
 
 CUSTOM_APPS = [
     "apps.common",

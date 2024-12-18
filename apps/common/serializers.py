@@ -52,31 +52,31 @@ class UserLocationSerialzer(serializers.ModelSerializer):
         fields = '__all__'
         
 
-User = get_user_model()
+# User = get_user_model()
 
-class RegistrationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email', 'password']
-        extra_kwargs = {'password': {'write_only': True}}
+# class RegistrationSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['email', 'password']
+#         extra_kwargs = {'password': {'write_only': True}}
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        user.is_active = False  # Tasdiqlashdan o'tmaguncha faollashtirmaymiz
-        user.save()
+#     def create(self, validated_data):
+#         user = User.objects.create_user(**validated_data)
+#         user.is_active = False  # Tasdiqlashdan o'tmaguncha faollashtirmaymiz
+#         user.save()
 
-        # Tasdiqlash kodi yaratish va email yuborish
-        verification_code = random.randint(100000, 999999)
-        user.verification_code = verification_code
-        user.save()
+#         # Tasdiqlash kodi yaratish va email yuborish
+#         verification_code = random.randint(100000, 999999)
+#         user.verification_code = verification_code
+#         user.save()
 
-        send_mail(
-            'Email tasdiqlash kodingiz',
-            f'Tasdiqlash kodingiz: {verification_code}',
-            'noreply@example.com',
-            [user.email],
-        )
-        return user        
+#         send_mail(
+#             'Email tasdiqlash kodingiz',
+#             f'Tasdiqlash kodingiz: {verification_code}',
+#             'noreply@example.com',
+#             [user.email],
+#         )
+#         return user        
         
         
 class CartItemSerializer(serializers.ModelSerializer):
