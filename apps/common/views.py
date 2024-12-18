@@ -155,8 +155,3 @@ class CartItemDeleteView(APIView):
 #             return Response({"detail": "Bunday foydalanuvchi mavjud emas."}, status=status.HTTP_404_NOT_FOUND)
 
 
-
-
-
-
-
