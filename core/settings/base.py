@@ -41,7 +41,6 @@ DJANGO_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "rest_framework_simplejwt",
     "django.contrib.staticfiles",
     'apps',
 ]
@@ -56,6 +55,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+    'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {

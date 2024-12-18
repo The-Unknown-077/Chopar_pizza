@@ -48,16 +48,16 @@ class ContactInfoListCreateAPIView(generics.ListCreateAPIView):
 
 
 
-class CustomUserListCreateAPIView(generics.ListCreateAPIView):
-    queryset = models.CustomUser.objects.all()
-    serializer_class = serializers.CustomUserSerializer
+# class CustomUserListCreateAPIView(generics.ListCreateAPIView):
+#     queryset = models.CustomUser.objects.all()
+#     serializer_class = serializers.CustomUserSerializer
 
 
 
 
-class UserLocationListCreateAPIView(generics.ListCreateAPIView):
-    queryset = models.UserLocation.objects.all()
-    serializer_class = serializers.UserLocationSerialzer 
+# class UserLocationListCreateAPIView(generics.ListCreateAPIView):
+#     queryset = models.UserLocation.objects.all()
+#     serializer_class = serializers.UserLocationSerialzer 
     
     
     
@@ -136,22 +136,22 @@ class UserProfile(APIView):
 
 
 
-User = get_user_model()
+# User = get_user_model()
 
-class VerifyEmailView(APIView):
-    def post(self, request):
-        email = request.data.get('email')
-        code = request.data.get('verification_code')
+# class VerifyEmailView(APIView):
+#     def post(self, request):
+#         email = request.data.get('email')
+#         code = request.data.get('verification_code')
 
-        try:
-            user = User.objects.get(email=email)
-            if user.verification_code == int(code):
-                user.is_active = True
-                user.verification_code = None  # Kodni olib tashlaymiz
-                user.save()
-                return Response({"detail": "Email tasdiqlandi, endi tizimga kiring."}, status=status.HTTP_200_OK)
-            return Response({"detail": "Noto'g'ri tasdiqlash kodi."}, status=status.HTTP_400_BAD_REQUEST)
-        except User.DoesNotExist:
-            return Response({"detail": "Bunday foydalanuvchi mavjud emas."}, status=status.HTTP_404_NOT_FOUND)
+#         try:
+#             user = User.objects.get(email=email)
+#             if user.verification_code == int(code):
+#                 user.is_active = True
+#                 user.verification_code = None  # Kodni olib tashlaymiz
+#                 user.save()
+#                 return Response({"detail": "Email tasdiqlandi, endi tizimga kiring."}, status=status.HTTP_200_OK)
+#             return Response({"detail": "Noto'g'ri tasdiqlash kodi."}, status=status.HTTP_400_BAD_REQUEST)
+#         except User.DoesNotExist:
+#             return Response({"detail": "Bunday foydalanuvchi mavjud emas."}, status=status.HTTP_404_NOT_FOUND)
 
 
