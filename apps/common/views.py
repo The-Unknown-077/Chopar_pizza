@@ -153,3 +153,10 @@ class VerifyEmailView(APIView):
             return Response({"detail": "Noto'g'ri tasdiqlash kodi."}, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
             return Response({"detail": "Bunday foydalanuvchi mavjud emas."}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+
+
+
