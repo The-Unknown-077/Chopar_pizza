@@ -11,10 +11,15 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_simplejwt.tokens import RefreshToken
 import random
 from rest_framework import status
 from django.contrib.auth import get_user_model
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth import get_user_model
+
+
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = models.Product.objects.all()
@@ -96,7 +101,7 @@ class CartListCreateView(generics.ListCreateAPIView):
         return Response(CartSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
-class CartItemDeleteView(generics.DestroyAPIView):
+class CartItemDeleteView(APIView):
     """
     Delete an item from the cart.
     """
@@ -115,11 +120,10 @@ class CartItemDeleteView(generics.DestroyAPIView):
         return Response({'detail': 'Item removed from cart'}, status=status.HTTP_204_NO_CONTENT)
 
 
-
 class UserProfile(APIView):
 
     def get(self, request):
-        user: User = request.user 
+        user: User = request.user
         if not user.is_authenticated:
             return Response(status=401)
         data = {
@@ -128,24 +132,8 @@ class UserProfile(APIView):
         }
 
         return Response(data=data)
-    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
 User = get_user_model()
