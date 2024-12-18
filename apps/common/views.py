@@ -95,7 +95,7 @@ class CartListCreateView(generics.ListCreateAPIView):
         return Response(CartSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
-class CartItemDeleteView(generics.DestroyAPIView):
+class CartItemDeleteView(APIView):
     """
     Delete an item from the cart.
     """
@@ -112,38 +112,11 @@ class CartItemDeleteView(generics.DestroyAPIView):
         order_item.delete()
 
         return Response({'detail': 'Item removed from cart'}, status=status.HTTP_204_NO_CONTENT)
-
-
-
-class UserProfile(APIView):
-
-    def get(self, request):
-        user: User = request.user 
-        if not user.is_authenticated:
-            return Response(status=401)
-        data = {
-            'full_name': user.first_name,
-            'phone_number': user.email, 
-        }
-
-        return Response(data=data)
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
     
 def generate_confirmation_code():
     return str(random.randint(100000, 999999))
@@ -200,3 +173,47 @@ def confirm_email(request):
             return JsonResponse({"error": "Bu email topilmadi."}, status=404)
 
     return render(request, "confirm_email.html")
+
+
+
+
+class UserProfile(APIView):
+
+    def get(self, request):
+        user: User = request.user
+        if not user.is_authenticated:
+            return Response(status=401)
+        data = {
+            'full_name': user.first_name,
+            'phone_number': user.email, 
+        }
+
+        return Response(data=data)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

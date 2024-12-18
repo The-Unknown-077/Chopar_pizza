@@ -3,22 +3,22 @@ from . import models
 from rest_framework import serializers
 from apps.common.models import Product, ProductPrice, Order, OrderItem, ContactInfo, CustomUser, UserLocation
 
-
-
-
-
-class ProductSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = models.Product
-        fields = "__all__"
-        
-        
 class ProductPriceSerialzier(serializers.ModelSerializer):
     class Meta:
         model = models.ProductPrice
         fields = "__all__"
         
+class ProductSerializer(serializers.ModelSerializer):
+    price = ProductPriceSerialzier(many=True,read_only = True,source="ProductPrice")
+    class Meta:
+        model = models.Product
+        fields = "__all__"
+        
+
+
+
+        
+
         
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,7 +46,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class UserLocationSerialzer(serializers.ModelSerializer):
     class Meta:
         model = models.UserLocation
-        fields = '__all__'
+        exclude = ("is_active",)
         
         
         
