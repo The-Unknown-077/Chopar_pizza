@@ -32,15 +32,15 @@ class ContactInfoAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'email', 'order_id')
 
 
-@admin.register(CustomUser)
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'is_confirmed', 'is_staff')
-    list_filter = ('is_confirmed', 'is_staff', 'is_superuser')
-    search_fields = ('email',)
+# @admin.register(CustomUser)
+# class CustomUserAdmin(admin.ModelAdmin):
+#     list_display = ('email', 'is_confirmed', 'is_staff')
+#     list_filter = ('is_confirmed', 'is_staff', 'is_superuser')
+#     search_fields = ('email',)
 
 
-@admin.register(UserLocation)
-class UserLocationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'latitude', 'langitude', 'home', 'is_active')
-    list_filter = ('is_active',)
-    search_fields = ('user__email', 'name_address')
+# @admin.register(UserLocation)
+# class UserLocationAdmin(admin.ModelAdmin):
+#     list_display = ('user', 'latitude', 'langitude', 'home', 'is_active')
+#     list_filter = ('is_active',)
+#     search_fields = ('user__email', 'name_address')

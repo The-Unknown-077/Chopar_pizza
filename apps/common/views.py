@@ -120,18 +120,18 @@ class CartItemDeleteView(APIView):
         return Response({'detail': 'Item removed from cart'}, status=status.HTTP_204_NO_CONTENT)
 
 
-class UserProfile(APIView):
+# class UserProfile(APIView):
 
-    def get(self, request):
-        user: User = request.user
-        if not user.is_authenticated:
-            return Response(status=401)
-        data = {
-            'full_name': user.first_name,
-            'phone_number': user.email, 
-        }
+#     def get(self, request):
+#         user: User = request.user
+#         if not user.is_authenticated:
+#             return Response(status=401)
+#         data = {
+#             'full_name': user.first_name,
+#             'phone_number': user.email, 
+#         }
 
-        return Response(data=data)
+#         return Response(data=data)
 
 
 
