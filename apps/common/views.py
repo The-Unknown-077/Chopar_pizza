@@ -55,9 +55,9 @@ class ContactInfoListCreateAPIView(generics.ListCreateAPIView):
 
 
 
-# class UserLocationListCreateAPIView(generics.ListCreateAPIView):
-#     queryset = models.UserLocation.objects.all()
-#     serializer_class = serializers.UserLocationSerialzer 
+class UserLocationListCreateAPIView(generics.ListCreateAPIView):
+    queryset = models.UserLocation.objects.all()
+    serializer_class = serializers.UserLocationSerialzer 
     
     
     
@@ -119,6 +119,26 @@ class CartItemDeleteView(APIView):
 
         return Response({'detail': 'Item removed from cart'}, status=status.HTTP_204_NO_CONTENT)
 
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from .models import CustomUser, UserLocation
+from .serializers import CustomUserSerializer, UserLocationSerializer
+
+# CustomUser uchun ViewSet
+class CustomUserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [IsAdminUser]  # Faqat adminlar ko'rish/o'zgartirish huquqiga ega
+
+# UserLocation uchun ViewSet
+class UserLocationViewSet(viewsets.ModelViewSet):
+    queryset = UserLocation.objects.select_related('user').all()
+    serializer_class = UserLocationSerializer
+    permission_classes = [IsAuthenticated]  # Faqat tizimga kirgan foydalanuvchilar
+    lookup_field = 'id'
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)  # Foydalanuvchi avtomatik qo'shiladi
 
 # class UserProfile(APIView):
 

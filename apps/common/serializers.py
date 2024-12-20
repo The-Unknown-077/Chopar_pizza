@@ -40,7 +40,21 @@ class ContactInfoSerializer(serializers.ModelSerializer):
         model = models.ContactInfo
         fields = "__all__"
         
-        
+from apps.common.models import CustomUser, UserLocation
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'email', 'is_active', 'is_staff']
+        read_only_fields = ['id', 'is_active', 'is_staff']
+
+class UserLocationSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer(read_only=True)
+
+    class Meta:
+        model = UserLocation
+        fields = ['id', 'user', 'latitude', 'longitude', 'home', 'kv', 'podyezd', 'domofon_code', 'name_address', 'is_active']
+        read_only_fields = ['id']        
         
 # class CustomUserSerializer(serializers.ModelSerializer):
 #     class Meta:

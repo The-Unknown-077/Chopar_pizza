@@ -83,45 +83,56 @@ class ContactInfo(models.Model):
 
 
 
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-# class CustomUserManager(BaseUserManager):
-#     def create_user(self, email, password=None, **extra_fields):
-#         if not email:
-#             raise ValueError("Email is required")
-#         email = self.normalize_email(email)
-#         user = self.model(email=email, **extra_fields)
-#         user.set_password(password)
-#         user.save(using=self._db)
-#         return user
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Email address is required")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.is_active = True  # Foydalanuvchi faol holatda bo'lishi uchun
+        user.save(using=self._db)
+        return user
 
-#     def create_superuser(self, email, password=None, **extra_fields):
-#         extra_fields.setdefault('is_staff', True)
-#         extra_fields.setdefault('is_superuser', True)
-#         return self.create_user(email, password, **extra_fields)
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
-# class CustomUser(AbstractBaseUser, PermissionsMixin):
-#     email = models.EmailField(unique=True)
-#     is_active = models.BooleanField(default=False)
-#     is_staff = models.BooleanField(default=False)
+        if not extra_fields.get('is_staff'):
+            raise ValueError("Superuser must have is_staff=True.")
+        if not extra_fields.get('is_superuser'):
+            raise ValueError("Superuser must have is_superuser=True.")
 
-#     objects = CustomUserManager()
+        return self.create_user(email, password, **extra_fields)
 
-#     USERNAME_FIELD = 'email'
-#     REQUIRED_FIELDS = []
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True, null=False, blank=False)
+    is_active = models.BooleanField(default=True)  # Default True qilib qo'yildi
+    is_staff = models.BooleanField(default=False)
 
-#     def __str__(self):
-#         return self.email
+    objects = CustomUserManager()
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
+    def __str__(self):
+        return self.email
 
-# class UserLocation(models.Model):
-#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-#     latitude = models.FloatField()
-#     langitude = models.FloatField()
-#     home = models.CharField(max_length=200)
-#     kv = models.CharField(max_length=200)
-#     podyezd = models.CharField(max_length=200)
-#     domofon_code = models.CharField(max_length=200)
-#     name_address = models.CharField(max_length=200)
-#     is_active = models.BooleanField(default=False)
+class UserLocation(models.Model):
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="locations"
+    )
+    latitude = models.FloatField(null=False, blank=False)
+    longitude = models.FloatField(null=False, blank=False)  # To'g'ri yozilgan
+    home = models.CharField(max_length=200, blank=True)
+    kv = models.CharField(max_length=200, blank=True)
+    podyezd = models.CharField(max_length=200, blank=True)
+    domofon_code = models.CharField(max_length=200, blank=True)
+    name_address = models.CharField(max_length=200, blank=True)
+    is_active = models.BooleanField(default=True)  # Foydalanuvchi joylashuvi faol
 
+    def __str__(self):
+        return f"{self.user.email} - {self.name_address or 'Unnamed Address'}"
